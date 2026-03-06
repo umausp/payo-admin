@@ -176,3 +176,45 @@ export interface QueryFilters {
   startDate?: string;
   endDate?: string;
 }
+
+// ============================================================================
+// Token Minting Types
+// ============================================================================
+
+export interface MintHistory {
+  _id: string;
+  mintId: string;
+  adminId: string;
+  adminEmail: string;
+  toAddress: string;
+  amount: string; // Human-readable (e.g., "1000")
+  amountWei: string; // Wei representation
+  reason?: string;
+  txHash?: string;
+  status: 'pending' | 'confirmed' | 'failed';
+  error?: string;
+  createdAt: string;
+  confirmedAt?: string;
+}
+
+export interface MintTokenRequest {
+  address: string;
+  amount: string;
+  reason?: string;
+}
+
+export interface MintTokenResponse {
+  success: boolean;
+  mintId: string;
+  txHash?: string;
+  amount: string;
+  address: string;
+  timestamp: string;
+}
+
+export interface TokenStats {
+  totalSupply: string;
+  remainingSupply: string;
+  minterAddress: string;
+  tokenAddress: string;
+}

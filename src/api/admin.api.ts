@@ -14,14 +14,18 @@ import type {
   MerchantStats,
   PaginatedResponse,
   QueryFilters,
+  MintHistory,
+  MintTokenRequest,
+  MintTokenResponse,
+  TokenStats,
 } from '@/types';
 
 const BASE_PATH = '/api/v1/admin';
 
 // Helper function to transform paginated responses
 function transformPaginatedResponse<T>(apiResponse: any): PaginatedResponse<T> {
-  const { users, merchants, data: items, total, limit, skip } = apiResponse;
-  const dataArray = users || merchants || items || [];
+  const { users, merchants, mints, data: items, total, limit, skip } = apiResponse;
+  const dataArray = users || merchants || mints || items || [];
   const currentLimit = limit || 20;
   const currentTotal = total || 0;
   const currentPage = skip ? Math.floor(skip / currentLimit) + 1 : 1;
@@ -249,5 +253,39 @@ export const adminApi = {
       { params: filters }
     );
     return transformPaginatedResponse<AuditLog>(response.data);
+  },
+
+  // ============ Token Minting ============
+  mintTokens: async (request: { address: string; amount: string; reason?: string }) => {
+    const response = await apiClient.post<any>(
+      `${BASE_PATH}/tokens/mint`,
+      request
+    );
+    return response.data;
+  },
+
+  getMintHistory: async (filters: QueryFilters = {}): Promise<PaginatedResponse<any>> => {
+    const response = await apiClient.get<any>(
+      `${BASE_PATH}/tokens/mints`,
+      { params: filters }
+    );
+    return transformPaginatedResponse<any>(response.data);
+  },
+
+  getMintById: async (mintId: string) => {
+    const response = await apiClient.get<{ mint: any }>(
+      `${BASE_PATH}/tokens/mints/${mintId}`
+    );
+    return response.data.mint;
+  },
+
+  getTokenStats: async () => {
+    const response = await apiClient.get<any>(`${BASE_PATH}/tokens/stats`);
+    return response.data;
+  },
+
+  getTokenBalance: async (address: string) => {
+    const response = await apiClient.get<any>(`${BASE_PATH}/tokens/balance/${address}`);
+    return response.data;
   },
 };

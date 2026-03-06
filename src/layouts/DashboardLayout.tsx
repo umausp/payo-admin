@@ -35,6 +35,7 @@ import {
   Assessment,
   Logout,
   AccountCircle,
+  AccountBalanceWallet,
 } from '@mui/icons-material';
 import { useAuthStore } from '@/store/authStore';
 
@@ -52,6 +53,7 @@ const navigationItems: NavigationItem[] = [
   { label: 'Users', path: '/users', icon: <People /> },
   { label: 'Merchants', path: '/merchants', icon: <Store /> },
   { label: 'Payments', path: '/payments', icon: <Payment /> },
+  { label: 'Mint Tokens', path: '/mint-tokens', icon: <AccountBalanceWallet />, roles: ['super_admin'] },
   { label: 'Admins', path: '/admins', icon: <SupervisorAccount />, roles: ['super_admin'] },
   { label: 'Audit Logs', path: '/audit-logs', icon: <Assessment /> },
 ];

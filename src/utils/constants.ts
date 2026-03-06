@@ -28,6 +28,10 @@ export const QUERY_KEYS = {
   ADMIN_DETAIL: 'admin-detail',
   ADMIN_ACTIVITY: 'admin-activity',
   AUDIT_LOGS: 'audit-logs',
+  TOKEN_STATS: 'token-stats',
+  MINT_HISTORY: 'mint-history',
+  MINT_DETAIL: 'mint-detail',
+  TOKEN_BALANCE: 'token-balance',
 } as const;
 
 export const ROUTES = {
@@ -42,6 +46,7 @@ export const ROUTES = {
   ADMINS: '/admins',
   ADMIN_DETAIL: '/admins/$adminId',
   AUDIT_LOGS: '/audit-logs',
+  MINT_TOKENS: '/mint-tokens',
   PROFILE: '/profile',
 } as const;
 
